@@ -12,42 +12,83 @@
     <p>調整下方的壓力特徵滑桿，即時預測員工的離職傾向機率。</p>
 </div>
 
-<div class="content-wrapper">
-    <div class="controls-panel">
-        <h2>特徵控制</h2>
+<div class="prediction-wrapper">
 
+    <div class="controls-panel card-style">
+        <h2 class="panel-title">壓力特徵控制器</h2>
         <div class="slider-group">
-            <label for="feature1">工作量壓力 (1-5)</label>
+            <label for="feature1">
+                <span>工作量壓力</span>
+                <span class="slider-value" id="feature1-value">3</span>
+            </label>
             <input type="range" id="feature1" class="slider" min="1" max="5" value="3" step="1">
-            <span id="feature1-value">3</span>
         </div>
-
         <div class="slider-group">
-            <label for="feature2">組織風氣-申訴管道壓力 (1-5)</label>
+            <label for="feature2">
+                <span>組織風氣-申訴管道壓力</span>
+                <span class="slider-value" id="feature2-value">3</span>
+            </label>
             <input type="range" id="feature2" class="slider" min="1" max="5" value="3" step="1">
-            <span id="feature2-value">3</span>
-        </div>
-
-        <div class="prediction-output">
-            <h3>預測離職傾向</h3>
-            <div class="probability-display">
-                <div class="probability-bar">
-                    <div id="probability-fill"></div>
-                </div>
-                <span id="prediction-value">...%</span>
-            </div>
         </div>
     </div>
 
-    <div class="chart-container">
-        <h2>特徵分佈散佈圖 (200筆隨機樣本)</h2>
-        <canvas id="scatterChart"></canvas>
-        <div class="chart-legend">
-            <span class="legend-item legend-no">■ 未離職</span>
-            <span class="legend-item legend-yes">■ 離職</span>
+    <div class="results-panel card-style">
+        <h2 class="panel-title">即時預測結果</h2>
+
+        <div class="circle-percentage-container">
+            <div class="circle-progress" id="circle-progress">
+                <div class="circle-progress-inner">
+                    <span id="risk-percentage-value">...</span>%
+                </div>
+            </div>
+            <p class="circle-percentage-label">離職傾向機率</p>
+        </div>
+
+        <div class="risk-interpretation">
+            <h3 id="risk-label">計算中...</h3>
+            <p id="risk-interpretation">請拖動滑桿以查看分析</p>
         </div>
     </div>
 </div>
+
+<div class="chart-container card-style">
+    <h2>特徵分佈散佈圖 (200筆隨機樣本)</h2>
+    <div class="chart-canvas-wrapper">
+        <canvas id="scatterChart"></canvas>
+    </div>
+    <div class="chart-legend">
+        <span class="legend-item legend-no">■ 未離職</span>
+        <span class="legend-item legend-yes">■ 離職</span>
+    </div>
+</div>
+
+<div class="info-blocks-wrapper">
+    <div class="info-card card-style">
+        <h3>模型評估指標 (測試集)</h3>
+        <ul id="model-evaluation-list">
+            <li><strong>召回率 (Recall):</strong> <span id="metric-recall">載入中...</span></li>
+            <li><strong>F1-Score:</strong> <span id="metric-f1">載入中...</span></li>
+            <li><strong>AUC 分數:</strong> <span id="metric-auc">載入中...</span></li>
+        </ul>
+    </div>
+
+    <div class="info-card card-style">
+        <h3>模型資訊</h3>
+        <ul id="model-info-list">
+            <li><strong>資料集:</strong> <span id="info-dataset-name">載入中...</span></li>
+            <li><strong>總樣本數:</strong> <span id="info-total-samples">載入中...</span></li>
+            <li><strong>訓練集大小:</strong> <span id="info-train-size">載入中...</span></li>
+            <li><strong>測試集大小:</strong> <span id="info-test-size">載入中...</span></li>
+            <li><strong>預測目標:</strong> <span id="info-target">載入中...</span></li>
+        </ul>
+    </div>
+
+    <div class="info-card card-style">
+        <h3 id="chart-info-title">圖表說明</h3>
+        <p id="chart-info-description">載入中...</p>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block code %}
