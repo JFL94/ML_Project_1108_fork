@@ -36,8 +36,15 @@
 .algorithm-section h2 {
     font-size: 2rem;
     color: #0B346E;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     text-align: center;
+}
+
+.algorithm-section .lead {
+    text-align-last: left;
+    max-width: 900px;
+    margin: 20px auto;
+    line-height: 2rem;
 }
 
 /* Algorithm Cards */

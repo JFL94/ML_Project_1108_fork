@@ -146,11 +146,11 @@ def get_model_info():
                 "auc": real_metrics["auc"]
             },
             "dataset": {
-                "name": "北北桃地區員工壓力調查",
+                "name": "勞工生活及就業狀況調查-北北桃",
                 "total_samples": real_metrics["total_samples"],
                 "train_size": real_metrics["train_size"],
                 "test_size": real_metrics["test_size"],
-                "target": "離職傾向 (turnover_intention)"
+                "target": "離職傾向"
             },
             "chart_info": {
                 "title": "圖表說明",
