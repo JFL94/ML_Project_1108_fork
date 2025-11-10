@@ -9,24 +9,24 @@
 
 {% block content %}
 <div class="page-header">
-    <h1>邏輯斯迴歸 (Logistic Regression)</h1>
-    <p>調整下方的壓力特徵滑桿，即時預測員工的離職傾向機率</p>
+    <h1>邏輯斯迴歸 Logistic Regression</h1>
+    <p>調整下方的壓力特徵滑桿，即時預測勞工的離職傾向機率</p>
 </div>
 
 <div class="prediction-wrapper">
 
     <div class="controls-panel card-style">
-        <h2 class="panel-title">壓力特徵控制器</h2>
+        <h2 class="panel-title">壓力特徵控制器 (1很滿意→5很不滿意)</h2>
         <div class="slider-group">
             <label for="feature1">
-                <span>工作量壓力</span>
+                <span>勞工對工作負荷量之滿意度</span>
                 <span class="slider-value" id="feature1-value">3</span>
             </label>
             <input type="range" id="feature1" class="slider" min="1" max="5" value="3" step="1">
         </div>
         <div class="slider-group">
             <label for="feature2">
-                <span>組織風氣-申訴管道壓力</span>
+                <span>勞工對員工申訴管道之暢通之滿意度</span>
                 <span class="slider-value" id="feature2-value">3</span>
             </label>
             <input type="range" id="feature2" class="slider" min="1" max="5" value="3" step="1">
@@ -75,7 +75,7 @@
         <div class="info-grid" id="model-evaluation-list">
 
             <div class="info-item">
-                <span class="info-item-label">召回率 (Recall)</span>
+                <span class="info-item-label">召回率</span>
                 <span class="info-item-value" id="metric-recall">載入中...</span>
             </div>
 

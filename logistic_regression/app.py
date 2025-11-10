@@ -142,8 +142,8 @@ def get_chart_data():
     
     return jsonify({
         "data": data_points,
-        "x_label": "工作量壓力 (stress_workload_amount)",
-        "y_label": "組織風氣-申訴管道壓力 (stress_org_climate_grievance)"
+        "x_label": "勞工對工作負荷量之滿意情形（工作負荷）",
+        "y_label": "勞工對員工申訴管道之暢通之滿意情形（組織氣氛）"
     })
 
 @logistic_bp.route("/logistic/info", methods=['GET'])
@@ -166,7 +166,7 @@ def get_model_info():
             },
             "chart_info": {
                 "title": "圖表說明",
-                "description": "此散佈圖展示了「工作量壓力」(X軸) 與「組織風氣壓力」(Y軸) 之間的關係。每個點代表一個隨機抽樣的員工：<span class='legend-no'>藍點</span>代表無離職傾向，<span class='legend-yes'>紅點</span>代表有離職傾向。您可以觀察兩類群體在壓力特徵上的分佈差異。"
+                "description": "此散佈圖展示了「工作負荷壓力」(X軸) 與「組織氣氛壓力」(Y軸) 之間的關係。每個點代表一個隨機抽樣的員工：<span class='legend-no'>藍點</span>代表無離職傾向，<span class='legend-yes'>紅點</span>代表有離職傾向，您可以觀察兩類群體在壓力特徵上的分佈差異。"
             }
         }
         return jsonify(info)
