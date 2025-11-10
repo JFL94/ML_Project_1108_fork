@@ -4,6 +4,8 @@ import joblib
 import numpy as np
 import pandas as pd
 import os
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import recall_score, f1_score, roc_auc_score
 
 # 定義 Blueprint
 logistic_bp = Blueprint(
@@ -33,11 +35,56 @@ try:
     # 取樣 200 筆
     chart_data_df = df.sample(n=200, random_state=42)
 
-except FileNotFoundError as e:
-    print(f"模型或資料檔案載入失敗: {e}")
+    # --- 3. 【要求 3】新增：自動計算評估指標 ---
+    
+    # 載入完整資料
+    df_full = pd.read_csv(data_path)
+    
+    # 資料前處理 (同 notebook)
+    df_full['turnover_numeric'] = df_full['turnover_intention'].map({'有': 1, '沒有': 0})
+    features = ['stress_workload_amount', 'stress_org_climate_grievance']
+    target = 'turnover_numeric'
+    
+    X = df_full[features]
+    y = df_full[target]
+    
+    # 使用「已儲存」的 scaler 來轉換「所有」資料
+    X_scaled = scaler.transform(X)
+    
+    # 關鍵：使用與 notebook 相同的分割參數 (我們假設 test_size=0.2, random_state=42)
+    # 如果您的 notebook 參數不同，請修改這裡！
+    X_train, X_test, y_train, y_test = train_test_split(
+        X_scaled, y, 
+        test_size=0.3, 
+        random_state=42, 
+        stratify=y  # 建議加上 stratify 確保 y 比例一致
+    )
+    
+    # 使用載入的 model 進行預測
+    y_pred = model.predict(X_test)
+    y_pred_proba = model.predict_proba(X_test)[:, 1] # 取 class 1 (離職) 的機率
+    
+    # 計算指標
+    real_metrics = {
+        "recall": f"{recall_score(y_test, y_pred):.3f}",  # 格式化到小數點後 3 位
+        "f1_score": f"{f1_score(y_test, y_pred):.3f}",
+        "auc": f"{roc_auc_score(y_test, y_pred_proba):.3f}",
+        "total_samples": len(df_full),
+        "train_size": len(X_train),
+        "test_size": len(X_test)
+    }
+
+except Exception as e:
+    print(f"模型或資料載入/評估失敗: {e}")
     model = None
     scaler = None
-    chart_data_df = pd.DataFrame()
+    df_chart = pd.DataFrame()
+    real_metrics = { # 發生錯誤時的預設值
+        "recall": "N/A", "f1_score": "N/A", "auc": "N/A",
+        "total_samples": "N/A", "train_size": "N/A", "test_size": "N/A"
+    }
+
+
 
 
 @logistic_bp.route("/logistic/")
@@ -106,15 +153,15 @@ def get_model_info():
         # 範例數據 (請您替換為模型訓練的真實數據)
         info = {
             "evaluation": {
-                "recall": "0.75",
-                "f1_score": "0.72",
-                "auc": "0.88"
+                "recall": real_metrics["recall"],
+                "f1_score": real_metrics["f1_score"],
+                "auc": real_metrics["auc"]
             },
             "dataset": {
                 "name": "北北桃地區員工壓力調查",
-                "total_samples": 1500,
-                "train_size": 1200,
-                "test_size": 300,
+                "total_samples": real_metrics["total_samples"],
+                "train_size": real_metrics["train_size"],
+                "test_size": real_metrics["test_size"],
                 "target": "離職傾向 (turnover_intention)"
             },
             "chart_info": {
