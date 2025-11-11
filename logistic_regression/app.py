@@ -166,7 +166,7 @@ def get_model_info():
             },
             "chart_info": {
                 "title": "圖表說明",
-                "description": "此散佈圖展示了「工作負荷壓力」(X軸) 與「組織氣氛壓力」(Y軸) 之間的關係。每個點代表一個隨機抽樣的員工：<span class='legend-no'>藍點</span>代表無離職傾向，<span class='legend-yes'>紅點</span>代表有離職傾向，您可以觀察兩類群體在壓力特徵上的分佈差異。"
+                "description": "此散佈圖展示了「工作負荷壓力」(X軸) 與「組織氣氛壓力」(Y軸) 之間的關係。每個點代表一個隨機抽樣的勞工：<span class='legend-no'>藍點</span>代表無離職傾向，<span class='legend-yes'>紅點</span>代表有離職傾向，您可以觀察兩類群體在壓力特徵上的分佈差異。"
             }
         }
         return jsonify(info)
