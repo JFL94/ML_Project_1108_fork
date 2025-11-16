@@ -37,7 +37,34 @@
         if (tableBody) {
             tableBody.addEventListener('click', handleDeleteRow);
         }
+
+        // G-04: --- 新增：設定報告卡最小高度 ---
+        setReportCardMinHeight();
+        // G-04: 監聽視窗縮放，以便重新計算高度
+        window.addEventListener('resize', setReportCardMinHeight);
     });
+
+    /**
+     * G-04: 新增: 設定報告卡最小高度
+     * 讓報告卡的高度至少與表單卡相同
+     */
+    function setReportCardMinHeight() {
+        const formCard = document.getElementById('prediction-form-card');
+        const reportCard = document.getElementById('prediction-report-card');
+
+        if (formCard && reportCard) {
+            // 在計算前先重設 minHeight，以獲取表單的自然高度
+            reportCard.style.minHeight = 'auto';
+
+            const formCardHeight = formCard.offsetHeight;
+
+            // 僅在表單高度大於報告卡目前高度時才設定
+            // (雖然 CSS flex-direction: column 會處理，但 JS 更保險)
+            if (formCardHeight > reportCard.offsetHeight) {
+                reportCard.style.minHeight = `${formCardHeight}px`;
+            }
+        }
+    }
 
     /**
      * G-02: 處理表單提交事件
@@ -337,22 +364,16 @@
                             display: true,
                             text: xLabel
                         },
-                        min: 0.5,
                         max: 5.5,
-                        ticks: {
-                            stepSize: 1
-                        }
+                        
                     },
                     y: {
                         title: {
                             display: true,
                             text: yLabel
                         },
-                        min: 0.5,
                         max: 5.5,
-                        ticks: {
-                            stepSize: 1
-                        }
+                        
                     }
                 },
                 plugins: {

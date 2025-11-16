@@ -60,6 +60,19 @@
     }
 }
 
+/* G-04 / 需求 1: 讓報告卡片可以垂直伸展 */
+#prediction-report-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* 確保卡片佔滿 grid 區域高度 */
+}
+
+#prediction-report-card .prediction-report-container {
+    flex-grow: 1;
+    /* 讓表格容器填滿卡片剩餘空間 */
+}
+
 /* 表單網格佈局 */
 .prediction-form-grid {
     display: grid;
