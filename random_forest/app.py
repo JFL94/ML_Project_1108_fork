@@ -62,9 +62,9 @@ try:
     
     # 計算指標
     real_metrics = {
-        "recall": f"{recall_score(y_test, y_pred):.3f}",
-        "f1_score": f"{f1_score(y_test, y_pred):.3f}",
-        "auc": f"{roc_auc_score(y_test, y_pred_proba):.3f}",
+        "recall": f"{recall_score(y_test, y_pred):.2f}",
+        "f1_score": f"{f1_score(y_test, y_pred):.2f}",
+        "auc": f"{roc_auc_score(y_test, y_pred_proba):.2f}",
         "total_samples": len(df_full),
         "train_size": len(X_train),
         "test_size": len(X_test)
